@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infographic: Báo Cáo Phân Tích HiPP & Chiến Lược TikTok</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chosen Palette: Energetic & Playful (#FF3366, #00C2A8, #FFB100, #4361EE) -->
+<!-- Application Structure Plan: Cấu trúc trang đơn (SPA) dạng Infographic cuộn dọc. Chia làm 4 phần chính tương ứng với hành trình khám phá của nhà phân phối mới: 1. Tổng quan & Thị phần (Donut Chart) -> 2. Thực trạng Giá cả trên TMĐT (Bar Chart) -> 3. Đánh giá Kênh Marketing (Radar Chart) -> 4. Chiến lược TikTok (Timeline Grid). Cấu trúc này dẫn dắt từ việc hiểu sản phẩm, nắm bắt thị trường đến hành động cụ thể, tối ưu hóa việc tiếp thu thông tin. -->
+<!-- Visualization & Content Choices: 1. Cơ cấu sản phẩm -> Goal: Compare/Composition -> Donut Chart (Chart.js) -> Trực quan hóa tỷ trọng doanh thu dự kiến của các dòng sữa. 2. So sánh giá -> Goal: Compare -> Bar Chart (Chart.js) -> Hiển thị chênh lệch giá rõ ràng giữa các kênh để thấy lợi thế của TikTok. 3. Hiệu quả kênh -> Goal: Compare/Relationships -> Radar Chart (Chart.js) -> Đánh giá đa chiều các kênh tiếp thị. 4. Quy trình TikTok -> Goal: Organize -> HTML/CSS Timeline -> Trình bày các bước thực chiến rõ ràng, dễ theo dõi. Tất cả đều không sử dụng SVG. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<style>
+body {
+    background-color: #F8FAFC;
+    color: #1E293B;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 400px;
+}
+@media (min-width: 768px) {
+    .chart-container {
+        height: 400px;
+    }
+}
+.step-number {
+    background-color: #4361EE;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+</style>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                vibrantPink: '#FF3366',
+                vibrantTeal: '#00C2A8',
+                vibrantAmber: '#FFB100',
+                vibrantBlue: '#4361EE',
+                darkSlate: '#1E293B'
+            }
+        }
+    }
+}
+</script>
+</head>
+<body class="antialiased pb-20">
+
+<header class="bg-vibrantBlue text-white py-16 px-4 shadow-md text-center">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Báo Cáo Phân Tích & Chiến Lược HiPP</h1>
+        <p class="text-xl md:text-2xl font-light opacity-90">Bản đồ thực chiến phát triển kênh TikTok dành cho Đại lý phân phối mới</p>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 mt-12 space-y-16">
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+        <div class="mb-8 border-b border-gray-100 pb-6">
+            <h2 class="text-3xl font-bold text-darkSlate mb-4">1. Phân Loại Dòng Sản Phẩm HiPP</h2>
+            <p class="text-gray-600 text-lg leading-relaxed">Để bắt đầu kinh doanh hiệu quả, đại lý cần nắm vững hệ sinh thái sản phẩm HiPP. Hãng định vị mạnh mẽ ở phân khúc "Organic", tuy nhiên, dòng sản phẩm mang lại doanh thu chủ lực tại Việt Nam lại là các sản phẩm tích hợp công nghệ sinh học hỗ trợ tiêu hóa.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <div class="p-5 border-l-4 border-vibrantTeal bg-teal-50 rounded-r-xl">
+                    <h3 class="text-xl font-bold text-vibrantTeal flex items-center gap-2"><span>🛡️</span> HiPP Combiotic</h3>
+                    <p class="text-gray-700 mt-2">Dòng sản phẩm chủ lực chứa HMP & GOS giúp bé tiêu hóa tốt, chống táo bón. Đây là sản phẩm "mồi" và tạo doanh thu chính, dễ tư vấn chốt sale nhất.</p>
+                </div>
+                <div class="p-5 border-l-4 border-vibrantAmber bg-amber-50 rounded-r-xl">
+                    <h3 class="text-xl font-bold text-vibrantAmber flex items-center gap-2"><span>🌿</span> HiPP Organic (Thuần)</h3>
+                    <p class="text-gray-700 mt-2">Đạt chuẩn hữu cơ Châu Âu khắt khe. Dành cho tập khách hàng cao cấp, mẹ bỉm chuộng sự thanh mát, sạch tuyệt đối và phát triển thuận tự nhiên.</p>
+                </div>
+                <div class="p-5 border-l-4 border-vibrantPink bg-pink-50 rounded-r-xl">
+                    <h3 class="text-xl font-bold text-vibrantPink flex items-center gap-2"><span>⚕️</span> Dòng Đặc Trị (HA, AR)</h3>
+                    <p class="text-gray-700 mt-2">Sản phẩm ngách dành cho trẻ dị ứng đạm bò hoặc nôn trớ. Tỷ suất lợi nhuận cao nhưng lượng bán (volume) thấp hơn, cần kiến thức tư vấn chuyên sâu.</p>
+                </div>
+            </div>
+            <div>
+                <div class="text-center mb-4 font-semibold text-gray-500 uppercase tracking-wide text-sm">Cơ cấu doanh thu dự kiến cho Đại lý mới</div>
+                <div class="chart-container">
+                    <canvas id="productChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+        <div class="mb-8 border-b border-gray-100 pb-6">
+            <h2 class="text-3xl font-bold text-darkSlate mb-4">2. Bản Đồ Giá Trên Sàn Thương Mại Điện Tử</h2>
+            <p class="text-gray-600 text-lg leading-relaxed">Mức giá là yếu tố sống còn khi lên chiến lược. Dữ liệu khảo sát trung bình cho dòng HiPP Combiotic Số 3 (800g) cho thấy sự chênh lệch rõ ràng giữa các kênh bán. Nắm bắt điều này giúp đại lý tận dụng tối đa voucher từ các nền tảng mới.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center shadow-sm">
+                <div class="text-4xl mb-3">🏪</div>
+                <h4 class="font-bold text-lg mb-1">Cửa hàng Offline</h4>
+                <p class="text-sm text-gray-500">Giá niêm yết cao nhất, cạnh tranh bằng dịch vụ chăm sóc trực tiếp và quà tặng vật lý.</p>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center shadow-sm">
+                <div class="text-4xl mb-3">🛒</div>
+                <h4 class="font-bold text-lg mb-1">Shopee / Lazada</h4>
+                <p class="text-sm text-gray-500">Thị trường đỏ. Khách hàng nhạy cảm về giá, biên lợi nhuận bị ép mỏng do cạnh tranh nội bộ.</p>
+            </div>
+            <div class="bg-blue-50 p-6 rounded-xl border-2 border-vibrantBlue text-center shadow-md transform hover:-translate-y-1 transition-transform">
+                <div class="text-4xl mb-3">📱</div>
+                <h4 class="font-bold text-lg text-vibrantBlue mb-1">TikTok Shop</h4>
+                <p class="text-sm text-gray-700 font-medium">Kênh được nền tảng trợ giá mạnh nhất qua Mega Voucher, chốt đơn theo cảm xúc cực tốt.</p>
+            </div>
+        </div>
+
+        <div>
+            <div class="text-center mb-4 font-semibold text-gray-500 uppercase tracking-wide text-sm">So sánh giá bán thực tế trung bình (VNĐ)</div>
+            <div class="chart-container" style="max-width: 800px;">
+                <canvas id="priceChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white rounded-2xl shadow-lg p-8">
+        <div class="mb-8 border-b border-gray-100 pb-6">
+            <h2 class="text-3xl font-bold text-darkSlate mb-4">3. Đánh Giá Các Kênh Marketing Kỹ Thuật Số</h2>
+            <p class="text-gray-600 text-lg leading-relaxed">Để tồn tại, đại lý mới không thể chỉ đăng bài bán hàng truyền thống. Biểu đồ Radar dưới đây so sánh sức mạnh của các kênh Marketing trực tuyến hiện nay dựa trên 5 tiêu chí cốt lõi, minh chứng cho sự ưu việt của TikTok trong giai đoạn thâm nhập.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="chart-container">
+                <canvas id="radarChart"></canvas>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-vibrantBlue">
+                    <h4 class="font-bold text-darkSlate">TikTok (Video ngắn & Live)</h4>
+                    <p class="text-sm text-gray-600 mt-1">Điểm tuyệt đối về khả năng tương tác và tốc độ ra đơn. Khách hàng mua dựa trên cảm xúc và review trực quan thay vì chỉ tìm kiếm thụ động.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-vibrantPink">
+                    <h4 class="font-bold text-darkSlate">Sàn TMĐT truyền thống (SEO)</h4>
+                    <p class="text-sm text-gray-600 mt-1">Tỷ lệ chuyển đổi ổn định nhưng chi phí quảng cáo (CPC) đang tăng cao. Tương tác khách hàng một chiều, khó xây dựng tệp fan trung thành.</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-vibrantAmber">
+                    <h4 class="font-bold text-darkSlate">Facebook Fanpage / Group</h4>
+                    <p class="text-sm text-gray-600 mt-1">Tốt cho xây dựng thương hiệu dài hạn và chăm sóc cộng đồng, nhưng tốc độ bùng nổ doanh số và tiếp cận tự nhiên (organic reach) đã giảm mạnh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-vibrantBlue text-white rounded-2xl shadow-lg p-8">
+        <div class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-4">4. Chiến Lược Thực Chiến TikTok Cho Đại Lý Mới</h2>
+            <p class="text-blue-100 text-lg max-w-3xl mx-auto">Áp dụng ngay lộ trình 4 bước để khai thác tối đa thuật toán phân phối nội dung và chính sách trợ giá của TikTok Shop dành cho ngành hàng Mẹ & Bé.</p>
+        </div>
+
+        <div class="space-y-6 max-w-4xl mx-auto">
+            
+            <div class="bg-white text-darkSlate p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-6 items-start">
+                <div class="step-number">1</div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-vibrantBlue mb-2">Tối Ưu Gian Hàng Tiêu Chuẩn</h3>
+                    <p class="text-gray-600 mb-3">Ngành sữa công thức bị kiểm duyệt gắt gao. Cần chuẩn bị đầy đủ hóa đơn, chứng từ ủy quyền để mở ngành hàng.</p>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>✅ Đặt tên sản phẩm chứa từ khóa chức năng: "Sữa HiPP Combiotic Số 3 Hỗ Trợ Tiêu Hóa..."</li>
+                        <li>✅ Hình ảnh có logo chứng nhận Organic và cam kết chính hãng.</li>
+                        <li>✅ Tạo các Combo 2 hộp, 4 hộp để nâng cao Giá trị trung bình đơn (AOV), thỏa mãn điều kiện áp mã giảm giá sâu của sàn.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white text-darkSlate p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-6 items-start">
+                <div class="step-number">2</div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-vibrantTeal mb-2">Sản Xuất Nội Dung Chạm "Nỗi Đau"</h3>
+                    <p class="text-gray-600 mb-3">Không quay video giới thiệu sản phẩm nhàm chán. Hãy làm video giải quyết vấn đề của mẹ bỉm sữa.</p>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>💡 <strong>Concept 1:</strong> "Giải cứu bé táo bón dài ngày" - Phân tích lý do và đưa giải pháp GOS từ HiPP.</li>
+                        <li>💡 <strong>Concept 2:</strong> "Hướng dẫn pha sữa HiPP chuẩn" - Đánh vào tâm lý sợ pha sai nhiệt độ làm chết lợi khuẩn.</li>
+                        <li>💡 <strong>Concept 3:</strong> ASMR đóng gói hàng hóa cẩn thận (hộp thiếc dễ móp) - Tạo niềm tin cực lớn cho người xem.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white text-darkSlate p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-6 items-start">
+                <div class="step-number">3</div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-vibrantPink mb-2">Bùng Nổ Livestream Chuyên Gia</h3>
+                    <p class="text-gray-600 mb-3">Livestream là công cụ chốt sale số 1 hiện tại. Giữ chân người xem bằng kiến thức, chốt đơn bằng deal sốc.</p>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>🔥 Khung giờ vàng: 11h30 - 13h00 và 20h30 - 22h30.</li>
+                        <li>🔥 Đóng vai người tư vấn (mặc áo blouse hoặc setup không gian chuyên nghiệp), đọc tình trạng phân của bé để tư vấn dòng sữa.</li>
+                        <li>🔥 Kêu gọi hành động liên tục: "Deal mua 2 lon tặng khăn tắm sợi tre chỉ xuất hiện trong 5 phút nữa!".</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white text-darkSlate p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-6 items-start">
+                <div class="step-number">4</div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-bold text-vibrantAmber mb-2">Xây Dựng Mạng Lưới KOC Affiliate</h3>
+                    <p class="text-gray-600 mb-3">Sử dụng hàng ngàn mẹ bỉm sữa trên nền tảng để bán hàng thay cho bạn thông qua Tiếp thị liên kết.</p>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                        <li>🤝 Cài đặt hoa hồng mở (Open Plan) khoảng 5% - 8% (mức hấp dẫn cho ngành sữa).</li>
+                        <li>🤝 Gửi mẫu thử (sample 50g) cho các KOC vi mô (Micro KOC) để họ tự quay video trải nghiệm vị sữa thanh mát.</li>
+                        <li>🤝 Cung cấp sẵn kịch bản và điểm nhấn sản phẩm cho KOC để đảm bảo thông điệp thương hiệu đồng nhất.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<script>
+function processLabels(labels, maxChars) {
+    return labels.map(label => {
+        if (label.length <= maxChars) return label;
+        const words = label.split(' ');
+        let lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > maxChars) {
+                if(currentLine) lines.push(currentLine.trim());
+                currentLine = word + ' ';
+            } else {
+                currentLine += word + ' ';
+            }
+        });
+        if (currentLine) lines.push(currentLine.trim());
+        return lines;
+    });
+}
+
+const tooltipConfig = {
+    callbacks: {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        }
+    }
+};
+
+const donutRawLabels = ['HiPP Combiotic Hỗ Trợ Tiêu Hóa', 'HiPP Organic Chuẩn Châu Âu', 'Dòng Đặc Trị HA & AR'];
+const donutWrappedLabels = processLabels(donutRawLabels, 16);
+
+const ctxProduct = document.getElementById('productChart').getContext('2d');
+new Chart(ctxProduct, {
+    type: 'doughnut',
+    data: {
+        labels: donutWrappedLabels,
+        datasets: [{
+            data: [70, 20, 10],
+            backgroundColor: ['#00C2A8', '#FFB100', '#FF3366'],
+            borderWidth: 2,
+            borderColor: '#ffffff',
+            hoverOffset: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { font: { family: "'Segoe UI', sans-serif", size: 13 } }
+            },
+            tooltip: tooltipConfig
+        },
+        cutout: '65%'
+    }
+});
+
+const priceRawLabels = ['Cửa hàng Mẹ & Bé Truyền Thống', 'Sàn TMĐT Shopee & Lazada', 'Trợ giá qua sàn TikTok Shop'];
+const priceWrappedLabels = processLabels(priceRawLabels, 16);
+
+const ctxPrice = document.getElementById('priceChart').getContext('2d');
+new Chart(ctxPrice, {
+    type: 'bar',
+    data: {
+        labels: priceWrappedLabels,
+        datasets: [{
+            label: 'Giá trung bình (VNĐ)',
+            data: [620000, 565000, 530000],
+            backgroundColor: ['#94A3B8', '#FF3366', '#4361EE'],
+            borderRadius: 8
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: tooltipConfig
+        },
+        scales: {
+            y: {
+                beginAtZero: false,
+                min: 450000,
+                ticks: {
+                    callback: function(value) { return (value / 1000) + 'k'; },
+                    font: { family: "'Segoe UI', sans-serif" }
+                },
+                grid: { color: '#F1F5F9' }
+            },
+            x: {
+                ticks: { font: { family: "'Segoe UI', sans-serif", weight: '600' } },
+                grid: { display: false }
+            }
+        }
+    }
+});
+
+const radarRawLabels = ['Tương tác khách', 'Tốc độ ra đơn', 'Biên lợi nhuận', 'Xây thương hiệu', 'Tận dụng Affiliates'];
+const radarWrappedLabels = processLabels(radarRawLabels, 16);
+
+const ctxRadar = document.getElementById('radarChart').getContext('2d');
+new Chart(ctxRadar, {
+    type: 'radar',
+    data: {
+        labels: radarWrappedLabels,
+        datasets: [
+            {
+                label: 'TikTok Shop',
+                data: [95, 90, 70, 85, 100],
+                backgroundColor: 'rgba(67, 97, 238, 0.2)',
+                borderColor: '#4361EE',
+                pointBackgroundColor: '#4361EE',
+                borderWidth: 2
+            },
+            {
+                label: 'Sàn Shopee/Lazada',
+                data: [60, 75, 65, 70, 60],
+                backgroundColor: 'rgba(255, 51, 102, 0.2)',
+                borderColor: '#FF3366',
+                pointBackgroundColor: '#FF3366',
+                borderWidth: 2
+            },
+            {
+                label: 'Facebook Group',
+                data: [85, 50, 80, 95, 30],
+                backgroundColor: 'rgba(255, 177, 0, 0.2)',
+                borderColor: '#FFB100',
+                pointBackgroundColor: '#FFB100',
+                borderWidth: 2
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            tooltip: tooltipConfig,
+            legend: { position: 'bottom' }
+        },
+        scales: {
+            r: {
+                angleLines: { color: '#E2E8F0' },
+                grid: { color: '#E2E8F0' },
+                pointLabels: {
+                    font: { family: "'Segoe UI', sans-serif", size: 12, weight: '600' },
+                    color: '#1E293B'
+                },
+                ticks: { display: false, min: 0, max: 100 }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
